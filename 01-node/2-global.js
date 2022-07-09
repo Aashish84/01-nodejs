@@ -1,12 +1,15 @@
 // GLOBALS  - NO WINDOW !!!!
 
 // __dirname  - path to current directory
-// __filename - file name
+// __filename - path + file name
 // require    - function to use modules (CommonJS)
 // module     - info about current module (file)
 // process    - info about env where the program is being executed
 
-console.log(__filename);
+//setInterval - run after certain interval
+//setTimeout - run only once after time
+
+console.log(__dirname);
 
 //traditional
 function print() {
