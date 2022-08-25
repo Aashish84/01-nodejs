@@ -1,5 +1,6 @@
 const express = require("express");
 const app = express();
+const connectDB = require("./db/connect");
 
 const tasks = require("./routes/tasks");
 
@@ -19,6 +20,15 @@ app.get("/", (req, res) => {
 });
 
 const port = 5000;
-app.listen(port, () => {
-  console.log(`server is listening at port ${5000}`);
-});
+const start = async () => {
+  try {
+    await connectDB();
+    app.listen(port, () => {
+      console.log(`server is listening at port ${5000}`);
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+start();
