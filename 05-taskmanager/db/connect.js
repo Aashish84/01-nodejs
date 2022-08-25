@@ -1,10 +1,7 @@
 const mongoose = require("mongoose");
 
-const connectionString =
-  "mongodb+srv://asis:1232663773@node-express-project.kqho3gs.mongodb.net/05-TASK-MANAGER?retryWrites=true&w=majority";
-
-const connectDB = () => {
-  return mongoose.connect(connectionString);
+const connectDB = (url) => {
+  return mongoose.connect(url);
 };
 
 // mongoose
