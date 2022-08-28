@@ -30,6 +30,7 @@ const addTask = async (req, res) => {
     res.status(500).json({ message: error });
   }
 };
+
 const updateTask = async (req, res) => {
   try {
     const { id: taskID } = req.params;
@@ -44,6 +45,23 @@ const updateTask = async (req, res) => {
     res.status(500).json({ message: error });
   }
 };
+
+const editTask = async (req, res) => {
+  try {
+    const { id: taskID } = req.params;
+    const task = await Task.findOneAndUpdate({ _id: taskID }, req.body, {
+      new: true,
+      runValidators: true,
+      overwrite: true,
+    });
+    task
+      ? res.status(200).json({ task })
+      : res.status(500).json({ msg: `data not found of id ${taskID}` });
+  } catch (error) {
+    res.status(500).json({ message: error });
+  }
+};
+
 const deleteTask = async (req, res) => {
   try {
     const { id: taskID } = req.params;
@@ -56,4 +74,11 @@ const deleteTask = async (req, res) => {
   }
 };
 
-module.exports = { getAllTasks, getTask, addTask, updateTask, deleteTask };
+module.exports = {
+  getAllTasks,
+  getTask,
+  addTask,
+  updateTask,
+  editTask,
+  deleteTask,
+};
