@@ -20,12 +20,14 @@ app.use("/api/v1/tasks", tasks);
 app.use(notfound);
 app.use(errorHandlerMiddleware);
 
-const port = 5000;
+// set PORT=6000&&node app.js - cmd
+// $env:PORT="6000"; node app.js - powershell
+const port = process.env.PORT || 5000;
 const start = async () => {
   try {
     await connectDB(process.env.MONGO_URI);
     app.listen(port, () => {
-      console.log(`server is listening at port ${5000}`);
+      console.log(`server is listening at port ${port}`);
     });
   } catch (error) {
     console.log(error);
