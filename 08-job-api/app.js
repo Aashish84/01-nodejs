@@ -22,6 +22,10 @@ app.use(express.json());
 app.use("/api/v1/auth", authRouter);
 app.use("/api/v1/jobs", jobsRouter);
 
+app.get("/", (req, res) => {
+  res.json({ msg: "home" });
+});
+
 app.use(notFoundMiddleware);
 app.use(errorHandlerMiddleware);
 

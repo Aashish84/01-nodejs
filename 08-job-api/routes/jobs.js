@@ -1,5 +1,6 @@
 const express = require("express");
 const router = express.Router();
+const authMiddleware = require("../middleware/authentication");
 
 const {
   getAllJobs,
@@ -8,6 +9,8 @@ const {
   updateJob,
   deleteJob,
 } = require("../controllers/jobs");
+
+router.use(authMiddleware);
 
 router.route("/").get(getAllJobs).post(createJob);
 
