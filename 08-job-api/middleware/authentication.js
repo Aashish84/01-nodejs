@@ -5,7 +5,7 @@ const { UnauthenticatedError } = require("../errors");
 const authMiddleware = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader || !authHeader.startsWith("Bearer ")) {
-    throw new UnauthenticatedError("invalid authHeader");
+    throw new UnauthenticatedError("no authHeader");
   }
   const token = authHeader.split(" ")[1];
   try {
