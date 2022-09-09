@@ -5,7 +5,7 @@ class ConnectDB {
     host: "localhost",
     user: "root",
     password: "",
-    database: "ewalk",
+    database: "ooad",
     port: 3306,
   };
 

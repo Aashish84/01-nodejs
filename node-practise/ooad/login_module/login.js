@@ -18,15 +18,6 @@ class Login {
     this.#password = password;
   }
 
-  getLoginHTML() {
-    let obj = {
-      forUserName: `<input type='text' name="username" />`,
-      forPassword: `<input type="password" name="password" />`,
-      forSubmit: `<input type="submit" name="submit" />`,
-    };
-    return `<form action="/login" method="post">${obj.forUserName} ${obj.forPassword} ${obj.forSubmit}</form>`;
-  }
-
   getCredentials() {
     return `username : ${this.#user_name} , password : ${this.#password}`;
   }
