@@ -1,10 +1,36 @@
-const { CustomAPIError } = require('../errors')
-const { StatusCodes } = require('http-status-codes')
+// const { CustomAPIError } = require("../errors");
+const { StatusCodes } = require("http-status-codes");
 const errorHandlerMiddleware = (err, req, res, next) => {
-  if (err instanceof CustomAPIError) {
-    return res.status(err.statusCode).json({ msg: err.message })
-  }
-  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err })
-}
+  let customError = {
+    statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
+    msg: err.message || "something went wrong",
+  };
 
-module.exports = errorHandlerMiddleware
+  // if (err instanceof CustomAPIError) {
+  //   return res.status(err.statusCode).json({ msg: err.message });
+  // }
+
+  if (err.name === "ValidationError") {
+    customError.statusCode = 400;
+    // console.log(Object.values(err.errors));
+    customError.msg = Object.values(err.errors)
+      .map((item) => item.message)
+      .join(",");
+  }
+
+  if (err.name === "CastError") {
+    customError.statusCode = 400;
+    customError.msg = `invalid id or no item found ,id : ${err.value}`;
+  }
+  if (err.code && err.code === 11000) {
+    customError.statusCode = 400;
+    customError.msg = `duplicate  ${Object.keys(
+      err.keyValue
+    )}; this email already exist on this system`;
+  }
+
+  return res.status(customError.statusCode).json({ err: customError.msg });
+  return res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ err });
+};
+
+module.exports = errorHandlerMiddleware;
